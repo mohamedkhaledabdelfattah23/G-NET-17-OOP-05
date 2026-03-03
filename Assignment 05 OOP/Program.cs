@@ -1,4 +1,8 @@
-﻿namespace Assignment_05_OOP
+﻿using Assignment_04_OOP.BookingTicket.Inheritance;
+using Assignment_05_OOP.Interfaces;
+using System;
+
+namespace Assignment_05_OOP
 {
     internal class Program
     {
@@ -100,25 +104,86 @@
 
 
 
+            Cinema c1  = new Cinema();
+            c1.OpenCinema();
+
+
+            StandardTicket t1 = new StandardTicket("Inception", 80, "A5");
+
+            VIPTicket t2 = new VIPTicket("Avengers", 200, true);
+
+            IMAXTicket t3 = new IMAXTicket("Dune", 130, true);
+
+
+
+            t1.book();
+
+            t2.book();
+
+            t3.book();
+
+
+            c1.AddTicket(t1);
+
+            c1.AddTicket(t2);
+
+            c1.AddTicket(t3);
+
+            c1.PrintAllTickets();
+
+
+            Console.WriteLine("\n--- Clone Test ---");
+
+
+            VIPTicket clone = (VIPTicket)t2.Clone();
+            clone.MovieName = "Interstellar";
+
+
+            Console.Write("Original : ");
+            t2.print();
+
+            Console.Write("Clone    : ");
+            clone.print();
+
+            
+            Console.WriteLine("\n--- After Cancellation ---");
+            t1.cancele();
+            t1.print();
+
+            
+            BookingHelper.PrintAll(new IPrintable[] { t1, t2, t3 });
+
+            c1.CloseCinema();
+        
 
 
 
 
 
 
-            /*
 
 
 
 
-             */
 
 
+    }
 
+        static class BookingHelper
+        {
+            public static void PrintAll(IPrintable[] items)
+            {
+                Console.WriteLine("\n--- BookingHelper.PrintAll ---");
+
+                foreach (var item in items)
+                {
+                    item.print();
+                }
+            }
         }
 
 
 
-    
+
     }
 }
